@@ -1,6 +1,0 @@
-dependencies {
-}
-
-tasks.register("prepareKotlinBuildScriptModel") {
-    doLast { }
-}
