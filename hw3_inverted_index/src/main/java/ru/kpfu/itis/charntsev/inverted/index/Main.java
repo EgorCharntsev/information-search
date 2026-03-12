@@ -1,0 +1,8 @@
+package ru.kpfu.itis.charntsev.inverted.index;
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Hello world!");
+    }
+}

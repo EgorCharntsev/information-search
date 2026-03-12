@@ -1,0 +1,10 @@
+https://ru.wikipedia.org/wiki/Информатика
+https://ru.wikipedia.org/wiki/Информационный_поиск
+https://ru.wikipedia.org/wiki/Поисковая_система
+https://ru.wikipedia.org/wiki/Индексирование
+https://ru.wikipedia.org/wiki/Краулер
+https://ru.wikipedia.org/wiki/Алгоритм
+https://ru.wikipedia.org/wiki/Структура_данных
+https://ru.wikipedia.org/wiki/Java
+https://ru.wikipedia.org/wiki/SQL
+https://ru.wikipedia.org/wiki/База_данных
