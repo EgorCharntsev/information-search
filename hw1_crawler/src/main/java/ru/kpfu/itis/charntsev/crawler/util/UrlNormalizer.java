@@ -32,6 +32,14 @@ public final class UrlNormalizer {
 
     public static boolean isLikelyHtmlPage(String url) {
         if (url == null) return false;
-        return !BAD_EXT.matcher(url).matches();
+
+        if (BAD_EXT.matcher(url).matches()) return false;
+
+        String lower = url.toLowerCase(Locale.ROOT);
+
+        if (lower.contains("action=edit")) return false;
+        if (lower.contains("redlink=1")) return false;
+
+        return true;
     }
 }
