@@ -13,7 +13,7 @@ public final class ConfigLoader {
         configBuilder.limit(envInt(env, "CRAWL_LIMIT", 100));
         configBuilder.lang(envStr(env, "CRAWL_LANG", "ru"));
         configBuilder.seedsPath(Paths.get(envStr(env, "CRAWL_SEEDS", "seeds.txt")));
-        configBuilder.outDir(Paths.get(envStr(env, "CRAWL_OUT", "out")));
+        configBuilder.outDir(Paths.get(envStr(env, "CRAWL_OUT", "hw1_crawler/output")));
         configBuilder.delayMs(envInt(env, "CRAWL_DELAY_MS", 250));
         configBuilder.timeoutSeconds(envInt(env, "CRAWL_TIMEOUT_S", 20));
         configBuilder.minTextChars(envInt(env, "CRAWL_MIN_TEXT_CHARS", 200));

@@ -1,9 +1,5 @@
 # User-specific stuff
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+.idea
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -185,3 +181,5 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+/.idea/
+/.idea/
