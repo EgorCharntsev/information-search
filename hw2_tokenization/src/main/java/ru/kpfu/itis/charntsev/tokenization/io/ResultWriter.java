@@ -12,6 +12,7 @@ import java.util.Set;
 public class ResultWriter {
 
     public void writeTokens(Set<String> tokens, Path outFile) throws IOException {
+        ensureParentDirectory(outFile);
         try (BufferedWriter writer = Files.newBufferedWriter(
                 outFile,
                 StandardCharsets.UTF_8,
@@ -26,6 +27,7 @@ public class ResultWriter {
     }
 
     public void writeLemmas(Map<String, Set<String>> lemmaToTokens, Path outFile) throws IOException {
+        ensureParentDirectory(outFile);
         try (BufferedWriter writer = Files.newBufferedWriter(
                 outFile,
                 StandardCharsets.UTF_8,
@@ -40,6 +42,13 @@ public class ResultWriter {
                 }
                 writer.newLine();
             }
+        }
+    }
+
+    private void ensureParentDirectory(Path outFile) throws IOException {
+        Path parent = outFile.getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
         }
     }
 }

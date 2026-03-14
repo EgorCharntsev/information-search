@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 public record TokenizationResult(
-        Set<String> uniqueTokens,
-        Map<String, Set<String>> lemmaToTokens
+        Map<String, Set<String>> documentTokens,
+        Map<String, Map<String, Set<String>>> documentLemmas
 ) {
 }
 
