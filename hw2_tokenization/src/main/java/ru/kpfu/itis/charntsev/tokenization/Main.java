@@ -14,6 +14,8 @@ public class Main {
 
     private static final Path INPUT_PAGES_DIR = Paths.get("hw1_crawler/output/pages");
     private static final Path OUTPUT_DIR = Paths.get("hw2_tokenization/output");
+    private static final Path TOKENS_DIR = OUTPUT_DIR.resolve("tokens");
+    private static final Path LEMMAS_DIR = OUTPUT_DIR.resolve("lemmas");
 
     public static void main(String[] args) throws Exception {
         if (!Files.isDirectory(INPUT_PAGES_DIR)) {
@@ -29,11 +31,20 @@ public class Main {
         ResultWriter writer = new ResultWriter();
 
         TokenizationResult result = pipeline.run(INPUT_PAGES_DIR);
+        for (var entry : result.documentTokens().entrySet()) {
+            writer.writeTokens(entry.getValue(), TOKENS_DIR.resolve(toOutputFileName(entry.getKey())));
+        }
 
-        Path tokensPath = OUTPUT_DIR.resolve("tokens.txt");
-        Path lemmasPath = OUTPUT_DIR.resolve("lemmas.txt");
+        for (var entry : result.documentLemmas().entrySet()) {
+            writer.writeLemmas(entry.getValue(), LEMMAS_DIR.resolve(toOutputFileName(entry.getKey())));
+        }
+    }
 
-        writer.writeTokens(result.uniqueTokens(), tokensPath);
-        writer.writeLemmas(result.lemmaToTokens(), lemmasPath);
+    private static String toOutputFileName(String htmlFileName) {
+        int dotIndex = htmlFileName.lastIndexOf('.');
+        if (dotIndex <= 0) {
+            return htmlFileName + ".txt";
+        }
+        return htmlFileName.substring(0, dotIndex) + ".txt";
     }
 }

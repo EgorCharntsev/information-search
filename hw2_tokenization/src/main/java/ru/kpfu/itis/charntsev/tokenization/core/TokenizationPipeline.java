@@ -29,13 +29,15 @@ public class TokenizationPipeline {
     }
 
     public TokenizationResult run(Path inputPagesDir) throws IOException {
-        Set<String> uniqueTokens = new TreeSet<>();
-        Map<String, Set<String>> lemmaToTokens = new TreeMap<>();
+        Map<String, Set<String>> documentTokens = new TreeMap<>();
+        Map<String, Map<String, Set<String>>> documentLemmas = new TreeMap<>();
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(inputPagesDir, "*.html")) {
             for (Path page : stream) {
                 String html = Files.readString(page, StandardCharsets.UTF_8);
                 String text = textExtractor.extractMainText(html);
+                Set<String> pageTokens = new TreeSet<>();
+                Map<String, Set<String>> pageLemmas = new TreeMap<>();
 
                 Matcher matcher = WORD_PATTERN.matcher(text);
                 while (matcher.find()) {
@@ -49,15 +51,19 @@ public class TokenizationPipeline {
                         continue;
                     }
 
-                    uniqueTokens.add(token);
-                    lemmaToTokens
+                    pageTokens.add(token);
+                    pageLemmas
                             .computeIfAbsent(lemmaInfo.lemma(), k -> new TreeSet<>())
                             .add(token);
                 }
+
+                String fileName = page.getFileName().toString();
+                documentTokens.put(fileName, pageTokens);
+                documentLemmas.put(fileName, pageLemmas);
             }
         }
 
-        return new TokenizationResult(uniqueTokens, lemmaToTokens);
+        return new TokenizationResult(documentTokens, documentLemmas);
     }
 }
 
