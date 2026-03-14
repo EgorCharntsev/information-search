@@ -7,21 +7,20 @@ import ru.kpfu.itis.charntsev.inverted.index.model.DocumentInfo;
 import ru.kpfu.itis.charntsev.inverted.index.model.InvertedIndex;
 import ru.kpfu.itis.charntsev.inverted.index.query.BooleanQueryParser;
 import ru.kpfu.itis.charntsev.inverted.index.search.BooleanSearchEngine;
-import ru.kpfu.itis.charntsev.tokenization.html.HtmlTextExtractor;
 import ru.kpfu.itis.charntsev.tokenization.nlp.RussianTextProcessor;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 public class Main {
 
-    private static final Path INPUT_PAGES_DIR = Paths.get("hw1_crawler/output/pages");
+    private static final Path INPUT_LEMMAS_DIR = Paths.get("hw2_tokenization/output/lemmas");
     private static final Path INPUT_CRAWLER_INDEX = Paths.get("hw1_crawler/output/index.txt");
     private static final Path OUTPUT_DIR = Paths.get("hw3_inverted_index/output");
     private static final Path OUTPUT_INDEX = OUTPUT_DIR.resolve("inverted_index.txt");
@@ -36,10 +35,9 @@ public class Main {
             throw new IllegalStateException("The file hw1_crawler/output/index.txt empty or has an incorrect format!");
         }
 
-        HtmlTextExtractor extractor = new HtmlTextExtractor();
         RussianTextProcessor processor = new RussianTextProcessor();
-        InvertedIndexBuilder builder = new InvertedIndexBuilder(extractor, processor);
-        InvertedIndex index = builder.build(INPUT_PAGES_DIR, documents);
+        InvertedIndexBuilder builder = new InvertedIndexBuilder(processor);
+        InvertedIndex index = builder.build(INPUT_LEMMAS_DIR, documents);
 
         InvertedIndexWriter writer = new InvertedIndexWriter();
         writer.write(index, OUTPUT_INDEX);
@@ -78,8 +76,8 @@ public class Main {
     }
 
     private static void validateInputs() {
-        if (!Files.isDirectory(INPUT_PAGES_DIR)) {
-            throw new IllegalStateException("The directory with the pages was not found: " + INPUT_PAGES_DIR.toAbsolutePath());
+        if (!Files.isDirectory(INPUT_LEMMAS_DIR)) {
+            throw new IllegalStateException("The directory with lemma files was not found: " + INPUT_LEMMAS_DIR.toAbsolutePath());
         }
         if (!Files.exists(INPUT_CRAWLER_INDEX)) {
             throw new IllegalStateException("The page list file was not found: " + INPUT_CRAWLER_INDEX.toAbsolutePath());
@@ -101,5 +99,4 @@ public class Main {
         String line = reader.readLine();
         return line == null ? "" : line.trim();
     }
-
 }

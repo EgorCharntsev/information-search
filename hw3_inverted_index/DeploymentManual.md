@@ -10,7 +10,7 @@
 - **Java**: JDK 17.
 - **Gradle Wrapper** уже лежит в репозитории.
 - Перед запуском должны быть готовы результаты:
-  - `hw1_crawler/output/pages/*.html`
+  - `hw2_tokenization/output/lemmas/*.txt`
   - `hw1_crawler/output/index.txt`
 
 ---
@@ -19,7 +19,7 @@
 
 Модуль `hw3_inverted_index`:
 
-- читает HTML‑страницы из `hw1_crawler/output/pages`;
+- читает постраничные файлы лемм из `hw2_tokenization/output/lemmas`;
 - извлекает основной текст;
 - нормализует слова и приводит их к леммам;
 - строит **инвертированный индекс** вида `термин -> список документов`;
