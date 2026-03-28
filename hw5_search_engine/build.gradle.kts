@@ -1,20 +1,14 @@
 plugins {
-    application
+    war
 }
 
-dependencies {}
-
-application {
-    mainClass.set("ru.kpfu.itis.charntsev.search.engine.Main")
+dependencies {
+    compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
+    implementation("com.github.demidko:aot:2025.11.25")
 }
 
-tasks.withType<JavaExec>().configureEach {
-    standardInput = System.`in`
-    jvmArgs(
-        "-Dfile.encoding=UTF-8",
-        "-Dsun.stdout.encoding=UTF-8",
-        "-Dsun.stderr.encoding=UTF-8"
-    )
+tasks.named<War>("war") {
+    archiveFileName.set("hw5_search_engine.war")
 }
 
 tasks.register("prepareKotlinBuildScriptModel") {
