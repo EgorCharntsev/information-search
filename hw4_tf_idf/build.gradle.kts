@@ -2,7 +2,9 @@ plugins {
     application
 }
 
-dependencies {}
+dependencies {
+    implementation(project(":hw2_tokenization"))
+}
 
 application {
     mainClass.set("ru.kpfu.itis.charntsev.tf.idf.Main")
