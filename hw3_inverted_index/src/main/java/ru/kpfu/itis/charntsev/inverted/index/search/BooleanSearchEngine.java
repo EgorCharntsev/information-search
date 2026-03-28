@@ -70,7 +70,7 @@ public class BooleanSearchEngine {
             return result;
         }
 
-        String rawNormalized = rawTerm.trim().toLowerCase().replace('ё', 'е');
+        String rawNormalized = rawTerm.trim().toLowerCase().replace('\u0451', '\u0435');
         result.addAll(index.getPostings(rawNormalized));
 
         String lemma = indexBuilder.normalizeToTerm(rawTerm);
